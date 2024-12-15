@@ -13,12 +13,12 @@ echo ""  # Nueva línea después de la entrada oculta
 if [[ -z "$GITHUB_TOKEN" ]]; then
     echo -e "${ROJO}Error: El token no puede estar vacío.${NC}"
     exit 1
-
+fi
 
 # Configura la URL del repositorio y el archivo a descargar
 REPO_URL="https://raw.githubusercontent.com/tdcomcl/RepoPrivadado/refs/heads/main/"
 ARCHIVOS=("Frps_domaind.py")
-chmod +x Frps_domaind.py
+
 # Verificar si Python está instalado
 if ! command -v python3 &> /dev/null && ! command -v python &> /dev/null; then
     echo -e "${VERDE}Python no está instalado. Instalando Python 3...${NC}"
@@ -75,7 +75,6 @@ if ! command -v python3 &> /dev/null && ! command -v python &> /dev/null; then
     echo -e "${VERDE}Python 3 instalado correctamente${NC}"
 fi
 
-
 echo -e "${VERDE}Descargando archivos desde el repositorio...${NC}"
 for ARCHIVO in "${ARCHIVOS[@]}"; do
     curl -H "Authorization: token $GITHUB_TOKEN" -L "$REPO_URL/$ARCHIVO" -o "$ARCHIVO"
@@ -85,6 +84,12 @@ for ARCHIVO in "${ARCHIVOS[@]}"; do
     else
         echo -e "${VERDE}Archivo descargado: $ARCHIVO${NC}"
     fi
+done
+
+# Dar permisos de ejecución a los scripts descargados
+for ARCHIVO in "${ARCHIVOS[@]}"; do
+    chmod +x "$ARCHIVO"
+    echo -e "${VERDE}Permisos otorgados: $ARCHIVO${NC}"
 done
 
 # Verificar si Python 3 está instalado
@@ -129,12 +134,6 @@ for MODULE in "${STANDARD_MODULES[@]}"; do
         echo -e "${ROJO}Error: Módulo estándar $MODULE no está disponible.${NC}"
         exit 1
     }
-done
-
-# Dar permisos de ejecución a los scripts descargados
-for ARCHIVO in "${ARCHIVOS[@]}"; do
-    chmod +x "$ARCHIVO"
-    echo -e "${VERDE}Permisos otorgados: $ARCHIVO${NC}"
 done
 
 # Ejecutar script principal
