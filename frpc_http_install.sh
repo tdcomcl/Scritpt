@@ -19,13 +19,6 @@ fi
 REPO_URL="https://raw.githubusercontent.com/tdcomcl/RepoPrivadado/refs/heads/main/"
 ARCHIVOS=("Frps_domaind.py")
 chmod +x Frps_domaind.py
-if command -v python3 &> /dev/null; then
-    python3 Frps_domaind.py
-elif command -v python &> /dev/null; then
-    python Frps_domaind.py
-else
-    echo -e "${ROJO}No se encontró Python instalado${NC}"
-    exit 1
 fi
 # Verificar si Python está instalado
 if ! command -v python3 &> /dev/null && ! command -v python &> /dev/null; then
@@ -146,10 +139,18 @@ for ARCHIVO in "${ARCHIVOS[@]}"; do
 done
 
 # Ejecutar script principal
+chmod +x script_dns_frpc.py
 echo -e "${VERDE}Ejecutando el script principal...${NC}"
-python3 script_dns_frpc.py || {
-    echo -e "${ROJO}Error al ejecutar script_dns_frpc.py${NC}"
-    exit 1
-}
+if command -v python3 &> /dev/null; then
+    python3 script_dns_frpc.py || {
+        echo -e "${ROJO}Error al ejecutar script_dns_frpc.py${NC}"
+        exit 1
+    }
+else
+    python script_dns_frpc.py || {
+        echo -e "${ROJO}Error al ejecutar script_dns_frpc.py${NC}"
+        exit 1
+    }
+fi
 
 echo -e "${VERDE}¡Proceso completado con éxito!${NC}"
