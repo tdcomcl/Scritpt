@@ -13,13 +13,12 @@ echo ""  # Nueva línea después de la entrada oculta
 if [[ -z "$GITHUB_TOKEN" ]]; then
     echo -e "${ROJO}Error: El token no puede estar vacío.${NC}"
     exit 1
-fi
+
 
 # Configura la URL del repositorio y el archivo a descargar
 REPO_URL="https://raw.githubusercontent.com/tdcomcl/RepoPrivadado/refs/heads/main/"
 ARCHIVOS=("Frps_domaind.py")
 chmod +x Frps_domaind.py
-fi
 # Verificar si Python está instalado
 if ! command -v python3 &> /dev/null && ! command -v python &> /dev/null; then
     echo -e "${VERDE}Python no está instalado. Instalando Python 3...${NC}"
