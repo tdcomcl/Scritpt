@@ -5,4 +5,4 @@
 	4.	Ejecuta el cliente FRPC y valida su funcionamiento.
 ### Recuerda que requiere token de a  GitHub.
 
-wget https://raw.githubusercontent.com/tdcomcl/Scritpt/refs/heads/main/frpc_http_install.sh && chmod +x frpc_http_install.sh && ./frpc_http_install.sh
+wget https://raw.githubusercontent.com/tdcomcl/Scritpt/main/frpc_http_install.sh && chmod +x frpc_http_install.sh && ./frpc_http_install.sh

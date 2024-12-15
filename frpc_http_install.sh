@@ -15,9 +15,10 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
     exit 1
 fi
 
-# Configura la URL base del repositorio y los archivos a descargar
+# Configura la URL del repositorio y el archivo a descargar
 REPO_URL="https://raw.githubusercontent.com/tdcomcl/RepoPrivadado/refs/heads/main/"
 ARCHIVOS=("Frps_domaind.py")
+chmod +x Frps_domaind.py
 
 echo -e "${VERDE}Descargando archivos desde el repositorio...${NC}"
 for ARCHIVO in "${ARCHIVOS[@]}"; do
