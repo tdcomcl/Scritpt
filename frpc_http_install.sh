@@ -19,6 +19,70 @@ fi
 REPO_URL="https://raw.githubusercontent.com/tdcomcl/RepoPrivadado/refs/heads/main/"
 ARCHIVOS=("Frps_domaind.py")
 chmod +x Frps_domaind.py
+if command -v python3 &> /dev/null; then
+    python3 Frps_domaind.py
+elif command -v python &> /dev/null; then
+    python Frps_domaind.py
+else
+    echo -e "${ROJO}No se encontró Python instalado${NC}"
+    exit 1
+fi
+# Verificar si Python está instalado
+if ! command -v python3 &> /dev/null && ! command -v python &> /dev/null; then
+    echo -e "${VERDE}Python no está instalado. Instalando Python 3...${NC}"
+    
+    # Detectar el sistema operativo
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        OS=$NAME
+    elif type lsb_release >/dev/null 2>&1; then
+        OS=$(lsb_release -si)
+    elif [ -f /etc/lsb-release ]; then
+        . /etc/lsb-release
+        OS=$DISTRIB_ID
+    elif [ -f /etc/debian_version ]; then
+        OS="Debian"
+    else
+        OS=$(uname -s)
+    fi
+
+    # Instalar Python según el sistema operativo
+    case $OS in
+        *"Ubuntu"*|*"Debian"*)
+            sudo apt-get update
+            sudo apt-get install -y python3
+            ;;
+        *"CentOS"*|*"Red Hat"*|*"Fedora"*)
+            sudo yum update
+            sudo yum install -y python3
+            ;;
+        *"SUSE"*)
+            sudo zypper refresh
+            sudo zypper install -y python3
+            ;;
+        *"Arch"*)
+            sudo pacman -Sy python
+            ;;
+        "Darwin")
+            if ! command -v brew &> /dev/null; then
+                echo -e "${ROJO}Homebrew no está instalado. Por favor, instala Homebrew primero.${NC}"
+                exit 1
+            fi
+            brew install python3
+            ;;
+        *)
+            echo -e "${ROJO}Sistema operativo no soportado: $OS${NC}"
+            exit 1
+            ;;
+    esac
+
+    if [ $? -ne 0 ]; then
+        echo -e "${ROJO}Error: No se pudo instalar Python${NC}"
+        exit 1
+    fi
+    echo -e "${VERDE}Python 3 instalado correctamente${NC}"
+fi
+
 
 echo -e "${VERDE}Descargando archivos desde el repositorio...${NC}"
 for ARCHIVO in "${ARCHIVOS[@]}"; do
