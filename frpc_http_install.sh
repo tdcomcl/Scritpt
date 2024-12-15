@@ -138,16 +138,15 @@ for ARCHIVO in "${ARCHIVOS[@]}"; do
 done
 
 # Ejecutar script principal
-chmod +x script_dns_frpc.py
 echo -e "${VERDE}Ejecutando el script principal...${NC}"
 if command -v python3 &> /dev/null; then
-    python3 script_dns_frpc.py || {
-        echo -e "${ROJO}Error al ejecutar script_dns_frpc.py${NC}"
+    python3 Frps_domaind.py || {
+        echo -e "${ROJO}Error al ejecutar Frps_domaind.py${NC}"
         exit 1
     }
 else
-    python script_dns_frpc.py || {
-        echo -e "${ROJO}Error al ejecutar script_dns_frpc.py${NC}"
+    python Frps_domaind.py || {
+        echo -e "${ROJO}Error al ejecutar Frps_domaind.py${NC}"
         exit 1
     }
 fi
