@@ -6,7 +6,7 @@ ROJO='\033[0;31m'
 NC='\033[0m' # No Color
 
 # Preguntar al usuario el token de GitHub (se oculta la entrada)
-read -s -p "Por favor, introduce tu token de acceso GitHub: " GITHUB_TOKEN
+read -s -p "Por favor, introduce tu token de acceso personal de GitHub: " GITHUB_TOKEN
 echo ""  # Nueva línea después de la entrada oculta
 
 # Verificar si el token no está vacío
